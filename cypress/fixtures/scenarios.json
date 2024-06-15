@@ -1,0 +1,7 @@
+[
+    { "income": 50000, "loanAmount": 200000, "expected": "Lend" },
+    { "income": 30000, "loanAmount": 150000, "expected": "Lend" },
+    { "income": 25000, "loanAmount": 200000, "expected": "Do not lend" },
+    { "income": 60000, "loanAmount": 250000, "expected": "Lend" },
+    { "income": 20000, "loanAmount": 180000, "expected": "Do not lend" }
+]
