@@ -60,8 +60,3 @@ To add or modify test scenarios, edit the `scenarios.json` file. Each scenario s
 - `expectedResult`: The expected outcome of the test, either "willing to lend" or "not willing to lend".
 
 After modifying the `scenarios.json` file, save the changes, and the tests will automatically pick up the new or updated scenarios.
-
-### Recommendations:
-1. **Check Code Snippets**: Ensure that the example code snippets and commands provided are correctly formatted and functional.
-2. **Clarify File Paths**: Explicitly mention the relative paths for `mortgageCalculator.cy.js` and `scenarios.json` to avoid any confusion.
-
