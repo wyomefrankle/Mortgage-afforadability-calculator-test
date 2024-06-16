@@ -4,8 +4,8 @@ This repository contains Cypress tests for the Mortgage Affordability Calculator
 ## Prerequisites
 Before running the tests, ensure that you have the following installed:
 
-Node.js (version 12 or later)
-npm (Node Package Manager)
+- Node.js (version 12 or later)
+- npm (Node Package Manager)
 
 ## Installation
 Clone this repository to your local machine.
@@ -33,16 +33,17 @@ The scenarios.json file contains an array of test scenarios, each with propertie
 ## Test Utilities
 The mortgageCalculator.cy.js file includes several utility functions to simplify the test code:
 
-acceptCookies(): Visits the Affordability Calculator page and accepts the cookie banner.
-typeIfVisible(selector, value): Types the provided value into an input field if it is visible on the page.
-clickIfVisible(selector, value): Clicks an element if it is visible on the page and contains the provided value.
-selectIfVisible(selectorHeader, selector, valueSelect): Selects a value in a dropdown if the dropdown is visible on the page.
-fillAndSubmitForm(data, expectedResult): Fills out the Mortgage Affordability Calculator form with the provided data and verifies the expected result.
+- acceptCookies(): Visits the Affordability Calculator page and accepts the cookie banner.
+- typeIfVisible(selector, value): Types the provided value into an input field if it is visible on the page.
+- clickIfVisible(selector, value): Clicks an element if it is visible on the page and contains the provided value.
+- selectIfVisible(selectorHeader, selector, valueSelect): Selects a value in a dropdown if the dropdown is visible on the page.
+- fillAndSubmitForm(data, expectedResult): Fills out the Mortgage Affordability Calculator form with the provided data and verifies the expected result.
 
-Adding or Modifying Test Scenarios
+## Adding or Modifying Test Scenarios
 To add or modify test scenarios, edit the scenarios.json file. Each scenario should have the following properties:
 
-scenario: A descriptive name for the test scenario.
-data: An object containing the input data for the form fields.
-expectedResult: The expected outcome of the test, either "willing to lend" or "not willing to lend".
+- scenario: A descriptive name for the test scenario.
+- data: An object containing the input data for the form fields.
+- expectedResult: The expected outcome of the test, either "willing to lend" or "not willing to lend".
+
 After modifying the scenarios.json file, save the changes, and the tests will automatically pick up the new or updated scenarios.
