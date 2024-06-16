@@ -53,18 +53,21 @@ describe("Mortgage Affordability Calculator Tests", () => {
       data.numberOfApplicants
     ).click();
     cy.contains(".Affordability-q10 .Form-label", data.mortgagePurpose).click();
+    clickIfVisible(".Affordability-q15 .Form-label", data.borrowedFunds);
     cy.get("#AffCalc-q20-BorrowingAmount").type(data.loanAmount);
+    typeIfVisible("#AffCalc-q22-BorrowingAmount", data.extraLoanAmount);
+    typeIfVisible(
+      "#AffCalc-q25-AmountTransferredFromOtherLender",
+      data.AmountTransferredFromOtherLender
+    );
     cy.get("#AffCalc-q30-MortgageTermYears").type(data.mortgageTerm);
     cy.get("#AffCalc-q40-OwnershipType").select(data.ownershipType);
-
-    // 2. Property Details
+    clickIfVisible(".Affordability-q42 .Form-label", data.borrowMoreTermMatchesExisting);
+    typeIfVisible("#AffCalc-q44-ExistingMortgageTermYears", data.existingMortgageTermYears);
+    typeIfVisible("#AffCalc-q46-ExistingMortgageBalance", data.existingMortgageBalance);
+    typeIfVisible("#AffCalc-q48-ExistingInterestOnlyMortgageBalance", data.existingInterestOnlyMortgageBalance);
     typeIfVisible("#AffCalc-q50-MarketValue", data.marketValue);
     clickIfVisible(".Affordability-q60 .Form-label", data.propertyStatus);
-    typeIfVisible("#AffCalc-q90-PurchasePrice", data.purchasePrice);
-    typeIfVisible(
-      "#AffCalc-q120-CurrentEstimatedValue",
-      data.currentEstimatedValue
-    );
     selectIfVisible(
       "#AffCalc-q70-Question",
       "#AffCalc-q70-PropertyTenure",
@@ -75,22 +78,22 @@ describe("Mortgage Affordability Calculator Tests", () => {
       "#AffCalc-q80-PropertyType",
       data.propertyType
     );
+    typeIfVisible("#AffCalc-q90-PurchasePrice", data.purchasePrice);
     typeIfVisible("#AffCalc-q100-PurchasePrice", data.sharePurchasePrice);
     typeIfVisible("#AffCalc-q110-PurchasePrice", data.discPurchasePrice);
-    clickIfVisible(".Affordability-q15 .Form-label", data.borrowedFunds);
     typeIfVisible(
-      "#AffCalc-q25-AmountTransferredFromOtherLender",
-      data.AmountTransferredFromOtherLender
+      "#AffCalc-q120-CurrentEstimatedValue",
+      data.currentEstimatedValue
     );
+    typeIfVisible("#AffCalc-q130-CurrentEstimatedValueShare", data.currentEstimatedValueShare);
     clickIfVisible(".Affordability-q135 .Form-label", data.propertyInScotland);
 
     //Click to next page
-
-    //3. Client details
     cy.get(
       ".Affordability-step--0 > .Affordability-stepFooter > .Affordability-nextStep"
     ).click();
 
+    //2. Client details
     cy.get("#AffCalc-q140-Day").type(data.dob.day);
     cy.get("#AffCalc-q140-Month").type(data.dob.month);
     cy.get("#AffCalc-q140-Year").type(data.dob.year + "{enter}");
@@ -102,6 +105,7 @@ describe("Mortgage Affordability Calculator Tests", () => {
 
     clickIfVisible(".Affordability-q150 .Form-label", data.financialDependents);
     clickIfVisible(".Affordability-q170 .Form-label", data.retired);
+
     typeIfVisible(
       "#AffCalc-q160-Age0to5-0",
       data.numberFinancialDependentsAge0to5
@@ -118,6 +122,8 @@ describe("Mortgage Affordability Calculator Tests", () => {
       "#AffCalc-q160-Age18More-3",
       data.numberFinancialDependentsAge18More
     );
+    
+    typeIfVisible("#AffCalc-q180-RetirementAge", data.retirementAge);
     typeIfVisible("#AffCalc-q190-Day", data.dob2.day);
     typeIfVisible("#AffCalc-q190-Month", data.dob2.month);
     typeIfVisible("#AffCalc-q190-Year", data.dob2.year + "{enter}");
@@ -126,6 +132,7 @@ describe("Mortgage Affordability Calculator Tests", () => {
       "#AffCalc-q195-JointApplicant-CustomerType",
       data.individualStatus2
     );
+    
     clickIfVisible(
       ".Affordability-q200 .Form-label",
       data.financialDependents2
@@ -148,35 +155,73 @@ describe("Mortgage Affordability Calculator Tests", () => {
     );
     clickIfVisible(".Affordability-q220 .Form-label", data.retired2);
     typeIfVisible("#AffCalc-q230-RetirementAge", data.retirementAge2);
-    typeIfVisible("#AffCalc-q180-RetirementAge", data.retirementAge);
 
     //Click to next page
     cy.get(
       ".Affordability-step--1 > .Affordability-stepFooter > .Affordability-nextStep"
     ).click();
 
-    //4. Client income details
+    //3. Client income details
     cy.get("#AffCalc-q240-EmploymentCategory").select(data.employmentStatus);
     selectIfVisible(
       "#AffCalc-q250-Question",
       "#AffCalc-q250-EmploymentType",
       data.contractType
     );
+    selectIfVisible(
+      "#AffCalc-q260-Question",
+      "#AffCalc-q260-TreatedAsEmployedForTax",
+      data.treatedAsEmployedForTax
+    );
     typeIfVisible("#AffCalc-q270-JobYears", data.jobDuration);
+    typeIfVisible("#AffCalc-q280-BusinessYears", data.businessDuration);
+    typeIfVisible("#AffCalc-q290-RegularYears", data.regularWorkDuration);
+    typeIfVisible("#AffCalc-q300-ContractYears", data.contractDuration);
+    typeIfVisible("#AffCalc-q310-ContractYears", data.remainingContractDuration);
     typeIfVisible("#AffCalc-q320-GrossAnnualIncome", data.salary);
     typeIfVisible("#AffCalc-q330-Bonus", data.bonus);
     typeIfVisible("#AffCalc-q340-Overtime", data.overtime);
     typeIfVisible("#AffCalc-q350-Commission", data.commission);
-    typeIfVisible("#AffCalc-q280-BusinessYears", data.businessDuration);
+    typeIfVisible("#AffCalc-q360-LatestPeriodProfit", data.latestPeriodProfit);
+    typeIfVisible("#AffCalc-q370-PreviousPeriodProfit", data.previousPeriodProfit);
     typeIfVisible("#AffCalc-q380-LatestPeriodProfitShare", data.profitShare);
     typeIfVisible(
       "#AffCalc-q390-PreviousPeriodProfitShare",
       data.profitSharePrev
     );
+    typeIfVisible(
+      "#AffCalc-q400-LatestPeriodSalary",
+      data.latestPeriodSalary
+    );
+    typeIfVisible("#AffCalc-q410-PreviousPeriodSalary", data.previousPeriodSalary);
+    clickIfVisible(".Affordability-q420 .Form-label", data.secondJob);
     selectIfVisible(
       "#AffCalc-q335-Question",
       "#AffCalc-q335-BonusFrequency",
       data.bonusFrequency
+    );
+    selectIfVisible(
+      "#AffCalc-q430-Question",
+      "#AffCalc-q430-EmploymentCategory",
+      data.secondJobEmploymentStatus
+    );
+    selectIfVisible(
+      "#AffCalc-q440-Question",
+      "#AffCalc-q440-EmploymentType",
+      data.secondJobContractType
+    );
+    clickIfVisible(".Affordability-q450 .Form-label", data.secondJobTreatedAsEmployedForTax);
+    typeIfVisible("#AffCalc-q460-JobYears", data.secondJobDuration);
+    typeIfVisible("#AffCalc-q470-BusinessYears", data.secondJobBusinessDuration);
+    typeIfVisible("#AffCalc-q480-RegularYears", data.secondJobRegularWorkDuration);
+    typeIfVisible("#AffCalc-q490-ContractYears", data.secondJobContractDuration);
+    typeIfVisible("#AffCalc-q500-ContractYears", data.secondJobRemainingContractDuration);
+    typeIfVisible("#AffCalc-q510-GrossAnnualIncome", data.secondJobSalary);
+    typeIfVisible("#AffCalc-q520-Bonus", data.secondJobBonus);
+    selectIfVisible(
+      "#AffCalc-q525-Question",
+      "#AffCalc-q525-BonusFrequency",
+      data.secondJobBonusFrequency
     );
     selectIfVisible(
       "#AffCalc-q345-Question",
@@ -188,7 +233,45 @@ describe("Mortgage Affordability Calculator Tests", () => {
       "#AffCalc-q355-CommissionFrequency",
       data.commissionFrequency
     );
-    clickIfVisible(".Affordability-q420 .Form-label", data.secondJob);
+    typeIfVisible("#AffCalc-q530-Overtime", data.secondJobOvertime);
+    selectIfVisible(
+      "#AffCalc-q535-Question",
+      "#AffCalc-q535-OvertimeFrequency",
+      data.secondJobOvertimeFrequency
+    );
+    typeIfVisible("#AffCalc-q540-Commission", data.secondJobCommission);
+    selectIfVisible(
+      "#AffCalc-q545-Question",
+      "#AffCalc-q545-CommissionFrequency",
+      data.secondJobCommissionFrequency
+    );
+    typeIfVisible("#AffCalc-q550-LatestPeriodProfit", data.secondJobLatestPeriodProfit);
+    typeIfVisible("#AffCalc-q560-PreviousPeriodProfit", data.secondJobPreviousPeriodProfit);
+    typeIfVisible("#AffCalc-q570-LatestPeriodProfitShare", data.secondJobProfitShare);
+    typeIfVisible(
+      "#AffCalc-q580-PreviousPeriodProfitShare",
+      data.secondJobProfitSharePrev
+    );
+    typeIfVisible(
+      "#AffCalc-q590-LatestPeriodSalary",
+      data.secondJobLatestPeriodSalary
+    );
+    typeIfVisible("#AffCalc-q600-PreviousPeriodSalary", data.secondJobPreviousPeriodSalary);
+    clickIfVisible(".Affordability-q610 .Form-label", data.otherIncome);
+    typeIfVisible("#AffCalc-q620-MonthlyInvestmentIncome", data.monthlyInvestmentIncome);
+    typeIfVisible("#AffCalc-q630-MortgageFreeMonthlyRentalIncome", data.mortgageFreeMonthlyRentalIncome);
+    typeIfVisible("#AffCalc-q640-MonthlyStateDisabilityBenefit", data.monthlyStateDisabilityBenefit);
+    typeIfVisible("#AffCalc-q650-MonthlyUniversalCreditsTaxCredits", data.monthlyUniversalCreditsTaxCredits);
+    typeIfVisible("#AffCalc-q660-MonthlyChildBenefit", data.monthlyChildBenefit);
+    typeIfVisible("#AffCalc-q670-MonthlyMaintenanceIncome", data.monthlyMaintenanceIncome);
+    typeIfVisible("#AffCalc-q680-MonthlyPensionIncome", data.monthlyPensionIncome);
+    typeIfVisible("#AffCalc-q700-AnnualInvestmentIncome", data.annualInvestmentIncome);
+    typeIfVisible("#AffCalc-q710-AnnualMortgageFreeRentalIncome", data.annualMortgageFreeRentalIncome);
+    typeIfVisible("#AffCalc-q720-AnnualStateDisabilityBenefit", data.annualStateDisabilityBenefit);
+    typeIfVisible("#AffCalc-q730-AnnualUniversalCredit", data.annualUniversalCredit);
+    typeIfVisible("#AffCalc-q740-AnnualChildBenefit", data.annualChildBenefit);
+    typeIfVisible("#AffCalc-q750-AnnualMaintenanceIncome", data.annualMaintenanceIncome);
+    typeIfVisible("#AffCalc-q760-AnnualPensionIncome", data.annualPensionIncome);
     selectIfVisible(
       "#AffCalc-q780-Question",
       "#AffCalc-q780-EmploymentCategory",
@@ -199,7 +282,17 @@ describe("Mortgage Affordability Calculator Tests", () => {
       "#AffCalc-q790-EmploymentType",
       data.contractType2
     );
+    selectIfVisible(
+      "#AffCalc-q1680-Question",
+      "#AffCalc-q1680-EmploymentCategoryRetired",
+      data.employmentCategoryRetired
+    );
+    clickIfVisible(".Affordability-q800 .Form-label", data.TreatedAsEmployedForTax2);
     typeIfVisible("#AffCalc-q810-JobYears", data.duration2);
+    typeIfVisible("#AffCalc-q820-BusinessYears", data.businessDuration2);
+    typeIfVisible("#AffCalc-q830-RegularYears", data.regularWorkDuration2);
+    typeIfVisible("#AffCalc-q840-ContractYears", data.contractDuration2);
+    typeIfVisible("#AffCalc-q850-ContractYears", data.remainingContractDuration2);
     typeIfVisible("#AffCalc-q860-GrossAnnualIncome", data.jobSalary2);
     typeIfVisible("#AffCalc-q870-Bonus", data.bonus2);
     selectIfVisible(
@@ -219,22 +312,29 @@ describe("Mortgage Affordability Calculator Tests", () => {
       "#AffCalc-q895-CommissionFrequency",
       data.commissionFrequency2
     );
-    typeIfVisible("#AffCalc-q820-BusinessYears", data.businessDuration2);
+    
+    typeIfVisible("#AffCalc-q900-LatestPeriodProfit", data.latestPeriodProfit2);
+    typeIfVisible("#AffCalc-q910-PreviousPeriodProfit", data.previousPeriodProfit2);
     typeIfVisible("#AffCalc-q920-LatestPeriodProfitShare", data.profitShare2);
     typeIfVisible(
       "#AffCalc-q930-PreviousPeriodProfitShare",
       data.profitSharePrev2
     );
-    clickIfVisible(".Affordability-q1150 .Form-label", data.otherIncome2);
+    typeIfVisible(
+      "#AffCalc-q940-LatestPeriodSalary",
+      data.latestPeriodSalary2
+    );
+    typeIfVisible("#AffCalc-q950-PreviousPeriodSalary", data.previousPeriodSalary2);
     clickIfVisible(".Affordability-q960 .Form-label", data.secondJob2);
-    clickIfVisible(".Affordability-q610 .Form-label", data.otherIncome);
+
+    clickIfVisible(".Affordability-q1150 .Form-label", data.otherIncome2);
 
     //Click to next page
     cy.get(
       ".Affordability-step--2 > .Affordability-stepFooter > .Affordability-nextStep"
     ).click();
 
-    //5. Client outgoings
+    //4. Client outgoings
     typeIfVisible(
       "#AffCalc-q1320-TotalCreditCardBalances",
       data.creditCardDebt
